@@ -33,7 +33,32 @@ public class DriverClass
 			System.out.println("4. system");
 			System.out.println("5. exit program");
 			selection = kb.nextInt();
+			runUserSelection(selection);
 		} while(selection != 5);
+	}
+	
+	public static void runUserSelection(int selection) {
+		switch(selection) {
+		case 1:
+			//Customers Customers = new Customers();
+			//Customers.firstOption();
+			break;
+		case 2:
+			UserLogin UserLogin = new UserLogin();
+			UserLogin.UserMenu();
+			break;
+		case 3:
+			//EmployeeLogin EmployeeLogin = new EmployeeLogin();
+			//EmployeeLogin.Offers();
+			break;
+		case 4:
+			//SystemAccess SystemAccess = new SystemAccess();
+			//SystemAccess.calculateMonthlyPayment();
+			break;
+		case 5:
+			//System.out.println("The program has terminated.");
+			break;
+		}
 	}
 	
 	public static void SQLConnect() {
@@ -47,7 +72,7 @@ public class DriverClass
 		}
 		try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
 			if(conn != null)
-				System.out.println("connected");
+				System.out.println("Connected to the database");
 			else
 				System.out.println("not connected");
 			conn.close();
@@ -58,9 +83,32 @@ public class DriverClass
 		}
 	}
 	
+	public static void createLoginTable() {
+		String sql ="create table login(username varchar(30), password varchar(30));";
+		try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+			if(conn != null) {
+				System.out.println("connected");
+				Statement stmt = conn.createStatement();
+				stmt.executeUpdate(sql);
+			}
+			else {
+				System.out.println("not connected");
+			}
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
     public static void main( String[] args ) {
     	SQLConnect();
     	menu();
+    	//createLoginTable();
+    	//menu();
+    	//String sql ="create table login(username varchar(30), password varchar(30);";
+    	
     }
 }
 
