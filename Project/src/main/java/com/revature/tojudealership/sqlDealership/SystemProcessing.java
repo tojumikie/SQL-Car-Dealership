@@ -2,7 +2,7 @@ package com.revature.tojudealership.sqlDealership;
 
 import java.util.Scanner;
 
-public class SystemLogin {
+public class SystemProcessing {
 	public static void calculateMonthlyPayment() {
 		Scanner kb = new Scanner(System.in);
 		System.out.println("What is the price of the offer?");

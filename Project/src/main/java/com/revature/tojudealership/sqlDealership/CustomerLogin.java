@@ -46,6 +46,7 @@ public class CustomerLogin {
 		System.out.println("Type the offer price as an integer");
 		offerPrice = kb.nextInt();
 		String sql = "insert into offers (name, price) values ('" + carName + "'" + "," + "'" + offerPrice + "');";
+		//String sql2 = "SELECT * FROM cars WHERE name = '" + u + "' and \"password\" = '" + p + "';";
 		//System.out.println(sql);
 		try (Connection conn = DriverManager.getConnection(DriverClass.URL, DriverClass.USERNAME, DriverClass.PASSWORD)) {
 			Statement stmt = conn.createStatement();
@@ -59,6 +60,9 @@ public class CustomerLogin {
 	
 	
 	public static void main(String[] args) {
+		String test = "2007 Mercedes-Benz S-Class V12";
 		//CustomerMenu();
+		String sql2 = "SELECT * FROM cars WHERE name = '" + test + ";'";
+		System.out.println(sql2);
 	}
 }

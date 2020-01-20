@@ -9,6 +9,27 @@ import java.util.Scanner;
 
 public class EmployeeLogin {
 	
+	public static void EmployeeMenu() {
+		Scanner kb = new Scanner(System.in);
+		int selection = 0;
+//		do {
+//			System.out.println("EMPLOYEE MENU");
+//			System.out.println("select an option.");
+//			System.out.println("1. add or remove vehicles on the lot");
+//			System.out.println("2. view offers");
+//			System.out.println("3. view payments made by customers");
+//			selection = kb.nextInt();
+//			switch(selection) {
+//			case 1:
+//				viewCarsOnLot();
+//				break;
+//			case 2:
+//				makeOffer();
+//				break;
+//			}
+//		} while(selection != 5);
+	}
+	
 	public static void addOrRemoveCars() {
 		displayCars();
 		String decision;
@@ -51,24 +72,45 @@ public class EmployeeLogin {
 	}
 	
 	public static void displayCars() {
+		//addOrRemoveCars();
+//		String carName = "2007 Mercedes-Benz S-Class V12";
+//		String sql = "delete from cars where name = ('" + carName + "');";
+//		System.out.println(sql);
 		DriverClass.SQLConnect();
 		try (Connection conn = DriverManager.getConnection(DriverClass.URL, DriverClass.USERNAME, DriverClass.PASSWORD)) {
 			String sql = "select * from cars";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				System.out.println(rs.getString("name") + "\t" + rs.getString("price"));
+				//System.out.println(rs.getString("name") + "\t" + rs.getString("price"));
+				System.out.printf("%30s: %10d%n", rs.getString("name"), rs.getInt("price"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 
 	public static void main(String[] args) {
-		addOrRemoveCars();
+		//addOrRemoveCars();
 //		String carName = "2007 Mercedes-Benz S-Class V12";
 //		String sql = "delete from cars where name = ('" + carName + "');";
 //		System.out.println(sql);
-	}
+//		DriverClass.SQLConnect();
+//		try (Connection conn = DriverManager.getConnection(DriverClass.URL, DriverClass.USERNAME, DriverClass.PASSWORD)) {
+//			String sql = "select * from cars";
+//			Statement stmt = conn.createStatement();
+//			ResultSet rs = stmt.executeQuery(sql);
+//			while(rs.next()) {
+//				//System.out.println(rs.getString("name") + "\t" + rs.getString("price"));
+//				System.out.printf("%30s: %10d%n", rs.getString("name"), rs.getInt("price"));
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 }

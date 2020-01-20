@@ -52,8 +52,8 @@ public class DriverClass
 			EmployeeLogin.addOrRemoveCars();
 			break;
 		case 4:
-			SystemLogin SystemLogin = new SystemLogin();
-			SystemLogin.calculateMonthlyPayment();
+			SystemProcessing SystemProcessing = new SystemProcessing();
+			SystemProcessing.calculateMonthlyPayment();
 			break;
 		case 5:
 			//System.out.println("The program has terminated.");
