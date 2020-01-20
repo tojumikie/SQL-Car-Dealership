@@ -49,7 +49,7 @@ public class DriverClass
 			break;
 		case 3:
 			EmployeeLogin EmployeeLogin = new EmployeeLogin();
-			EmployeeLogin.addOrRemoveCars();
+			EmployeeLogin.EmployeeMenu();
 			break;
 		case 4:
 			SystemProcessing SystemProcessing = new SystemProcessing();
@@ -146,7 +146,7 @@ public class DriverClass
     	//SQLConnect();
     	//menu();
     	//createLoginTable();
-    	//menu();
+    	menu();
     	//String sql ="create table login(username varchar(30), password varchar(30);";
     	//createOfferTable();
     	//createOwnedCarsTable();

@@ -2,6 +2,7 @@ package com.revature.tojudealership.sqlDealership;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -26,6 +27,11 @@ public class CustomerLogin {
 				break;
 			case 2:
 				makeOffer();
+				break;
+			case 3:
+				viewOwnedCars();
+				break;
+			case 5:
 				break;
 			}
 		} while(selection != 5);
@@ -57,7 +63,26 @@ public class CustomerLogin {
 		}
 	}
 	
+	public static void viewOwnedCars() {
+		DriverClass.SQLConnect();
+		try (Connection conn = DriverManager.getConnection(DriverClass.URL, DriverClass.USERNAME, DriverClass.PASSWORD)) {
+			String sql = "select * from carsOwned";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				//System.out.println(rs.getString("name") + "\t" + rs.getString("price"));
+				System.out.printf("%30s: %10d%n", rs.getString("name"), rs.getInt("price"));
+			}
+			System.out.println();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
+	public static void viewRemainingPayments() {
+		
+	}
 	
 	public static void main(String[] args) {
 		String test = "2007 Mercedes-Benz S-Class V12";
