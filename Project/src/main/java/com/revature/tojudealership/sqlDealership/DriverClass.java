@@ -40,20 +40,20 @@ public class DriverClass
 	public static void runUserSelection(int selection) {
 		switch(selection) {
 		case 1:
-			//Customers Customers = new Customers();
-			//Customers.firstOption();
+			CustomerLogin CustomerLogin = new CustomerLogin();
+			CustomerLogin.CustomerMenu();
 			break;
 		case 2:
 			UserLogin UserLogin = new UserLogin();
 			UserLogin.UserMenu();
 			break;
 		case 3:
-			//EmployeeLogin EmployeeLogin = new EmployeeLogin();
-			//EmployeeLogin.Offers();
+			EmployeeLogin EmployeeLogin = new EmployeeLogin();
+			EmployeeLogin.addOrRemoveCars();
 			break;
 		case 4:
-			//SystemAccess SystemAccess = new SystemAccess();
-			//SystemAccess.calculateMonthlyPayment();
+			SystemLogin SystemLogin = new SystemLogin();
+			SystemLogin.calculateMonthlyPayment();
 			break;
 		case 5:
 			//System.out.println("The program has terminated.");
@@ -71,10 +71,12 @@ public class DriverClass
 			e.printStackTrace();
 		}
 		try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-			if(conn != null)
-				System.out.println("Connected to the database");
-			else
+			if(conn != null) {
+				//System.out.println("Connected to the database");
+			}
+			else {
 				System.out.println("not connected");
+			}
 			conn.close();
 		}
 		catch(SQLException e)
@@ -101,14 +103,53 @@ public class DriverClass
 		}
 	}
 	
+	public static void createOfferTable() {
+		SQLConnect();
+		String sql = "create table offers(name varchar(255), price int);";
+		try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+			if(conn != null) {
+				System.out.println("connected");
+				Statement stmt = conn.createStatement();
+				stmt.executeUpdate(sql);
+			}
+			else {
+				System.out.println("not connected");
+			}
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void createOwnedCarsTable() {
+		SQLConnect();
+		String sql = "create table carsOwned(name varchar(255), value int);";
+		try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+			if(conn != null) {
+				System.out.println("connected");
+				Statement stmt = conn.createStatement();
+				stmt.executeUpdate(sql);
+			}
+			else {
+				System.out.println("not connected");
+			}
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
     public static void main( String[] args ) {
-    	SQLConnect();
-    	menu();
+    	//SQLConnect();
+    	//menu();
     	//createLoginTable();
     	//menu();
     	//String sql ="create table login(username varchar(30), password varchar(30);";
-    	
+    	//createOfferTable();
+    	//createOwnedCarsTable();
     }
 }
 

@@ -9,26 +9,7 @@ import java.util.Scanner;
 
 public class EmployeeLogin {
 	
-	public void addOrRemoveCars() {
-		
-	}
-	
-	public static void displayCars() {
-		DriverClass.SQLConnect();
-		try (Connection conn = DriverManager.getConnection(DriverClass.URL, DriverClass.USERNAME, DriverClass.PASSWORD)) {
-			String sql = "select * from cars";
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next()) {
-				System.out.println(rs.getString("name") + "\t" + rs.getString("price"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public static void main(String[] args) {
+	public static void addOrRemoveCars() {
 		displayCars();
 		String decision;
 		String carName;
@@ -57,6 +38,37 @@ public class EmployeeLogin {
 			//System.out.println("remove");
 			System.out.println("Type in the name of the car that you would like to remove.");
 			carName = kb.nextLine();
+			sql = "delete from cars where name = ('" + carName + "');";
+			try (Connection conn = DriverManager.getConnection(DriverClass.URL, DriverClass.USERNAME, DriverClass.PASSWORD)) {
+				Statement stmt = conn.createStatement();
+				stmt.executeUpdate(sql);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
+	}
+	
+	public static void displayCars() {
+		DriverClass.SQLConnect();
+		try (Connection conn = DriverManager.getConnection(DriverClass.URL, DriverClass.USERNAME, DriverClass.PASSWORD)) {
+			String sql = "select * from cars";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				System.out.println(rs.getString("name") + "\t" + rs.getString("price"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void main(String[] args) {
+		addOrRemoveCars();
+//		String carName = "2007 Mercedes-Benz S-Class V12";
+//		String sql = "delete from cars where name = ('" + carName + "');";
+//		System.out.println(sql);
 	}
 }
