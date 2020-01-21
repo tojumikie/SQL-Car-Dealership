@@ -31,6 +31,8 @@ public class CustomerLogin {
 			case 3:
 				viewOwnedCars();
 				break;
+			case 4:
+				viewRemainingPayments();
 			case 5:
 				break;
 			}
@@ -71,7 +73,7 @@ public class CustomerLogin {
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				//System.out.println(rs.getString("name") + "\t" + rs.getString("price"));
-				System.out.printf("%30s: %10d%n", rs.getString("name"), rs.getInt("price"));
+				System.out.printf("%30s: %10d%n", rs.getString("name"), rs.getInt("value"));
 			}
 			System.out.println();
 		} catch (SQLException e) {
@@ -81,13 +83,41 @@ public class CustomerLogin {
 	}
 	
 	public static void viewRemainingPayments() {
-		
+		Scanner kb = new Scanner(System.in);
+		String decision;
+		int payment;
+		DriverClass.SQLConnect();
+		try (Connection conn = DriverManager.getConnection(DriverClass.URL, DriverClass.USERNAME, DriverClass.PASSWORD)) {
+			String sql = "select * from carsOwned";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				//System.out.println(rs.getString("name") + "\t" + rs.getString("price"));
+				System.out.printf("%30s: %10d%n", rs.getString("name"), rs.getInt("value"));
+			}
+			System.out.println();
+			System.out.println("Do you want to make a payment?");
+			decision = kb.nextLine();
+			if(decision.equals("yes"))
+			{
+				System.out.println("Type the payment amount as an integer");
+				payment = kb.nextInt();
+				String sql2 = "update public.carsowned set value = value - " + payment + ";";
+				//System.out.println(sql2);
+				stmt.executeUpdate(sql2);
+				String sql3 = "insert into public.payments(payment_amount) values ('" + payment + "');";
+				stmt.executeUpdate(sql3);
+				//System.out.println(sql3);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void main(String[] args) {
-		String test = "2007 Mercedes-Benz S-Class V12";
-		//CustomerMenu();
-		String sql2 = "SELECT * FROM cars WHERE name = '" + test + ";'";
-		System.out.println(sql2);
+//		String test = "2007 Mercedes-Benz S-Class V12";
+//		String sql2 = "SELECT * FROM cars WHERE name = '" + test + ";'";
+//		System.out.println(sql2);
 	}
 }
